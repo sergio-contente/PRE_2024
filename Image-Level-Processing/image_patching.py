@@ -44,12 +44,3 @@ def create_images_set(X_train, X_test, patch_size=(64, 64), output_dir_train='pa
         if image is not None:
             image_patches, positions = create_patches(image, patch_size)
             save_patches(image_patches, positions, output_dir_test, os.path.splitext(os.path.basename(path))[0], image.shape)
-
-def main():
-    df, split_variables = create_dataframe()
-    X_train, X_test = split_variables[0], split_variables[1]
-
-    create_images_set(X_train, X_test)
-
-if __name__ == "__main__":
-    main()

@@ -3,7 +3,7 @@ import os
 from sklearn.model_selection import train_test_split
 
 def create_dataframe():
-	data_path = './CBIR_15-Scene'
+	data_path = '../data/CBIR_15-Scene'
 	labels_file_path = os.path.join(data_path, 'Labels.txt')
 
 	with open(labels_file_path, 'r') as file:
