@@ -58,12 +58,16 @@ def create_images_set(X_train, X_test, y_train, y_test, patch_size=(32, 32), out
             category_dir = os.path.join(output_dir_test, str(category), f'image_{idx}')
             save_patches(image_patches, positions, category_dir, f'image_{idx}', resized_image.shape, patch_size)
 
-def load_patches(directory, patch_size=(32, 32)):
-    patches = []
-    for root, _, files in os.walk(directory):
-        for filename in files:
-            if filename.endswith('.png'):
-                patch = cv2.imread(os.path.join(root, filename), cv2.IMREAD_GRAYSCALE)
-                if patch is not None and patch.shape == patch_size:
-                    patches.append(patch.flatten())
-    return np.array(patches)
+def load_patches_by_category(base_dir, categories, patch_size=(32, 32)):
+    patches_by_category = {}
+    for category in categories:
+        category_patches = []
+        category_dir = os.path.join(base_dir, str(category))
+        for root, _, files in os.walk(category_dir):
+            for filename in files:
+                if filename.endswith('.png'):
+                    patch = cv2.imread(os.path.join(root, filename), cv2.IMREAD_GRAYSCALE)
+                    if patch is not None and patch.shape == patch_size:
+                        category_patches.append(patch.flatten())
+        patches_by_category[category] = np.array(category_patches)
+    return patches_by_category
