@@ -2,4 +2,5 @@
 Image-Level-Processing/patches_train/
 Image-Level-Processing/patches_test/
 extracted_data/
-
+patches_test/
+patches_train/
