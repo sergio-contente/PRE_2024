@@ -4,3 +4,6 @@ Image-Level-Processing/patches_test/
 extracted_data/
 patches_test/
 patches_train/
+Latent-Deep-Features/patches_train/
+Latent-Deep-Features/patches_test/
+
