@@ -38,7 +38,6 @@ def load_images_by_category(base_dir, categories, image_size=(224, 224)):
     for category in categories:
         category_images = []
         category_dir = os.path.join(base_dir, str(category))
-        print(f"Loading images from {category_dir}")
         for root, _, files in os.walk(category_dir):
             for filename in files:
                 if filename.endswith('.png'):
@@ -50,5 +49,4 @@ def load_images_by_category(base_dir, categories, image_size=(224, 224)):
                     else:
                         print(f"Failed to load image: {image_path}")
         images_by_category[category] = np.array(category_images)
-        print(f"Loaded {len(category_images)} images for category {category}")
     return images_by_category
