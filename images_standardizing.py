@@ -42,7 +42,7 @@ def load_images_by_category(base_dir, categories, image_size=(224, 224)):
             for filename in files:
                 if filename.endswith('.png'):
                     image_path = os.path.join(root, filename)
-                    image = cv2.imread(image_path, cv2.IMREAD_COLOR)  # Ensure image is read in color
+                    image = cv2.imread(image_path, cv2.IMREAD_COLOR) 
                     if image is not None:
                         resized_image = resize_image(image, image_size)
                         category_images.append(resized_image)
