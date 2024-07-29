@@ -3,8 +3,6 @@ import os
 import numpy as np
 import sys
 
-standard_size = (256, 256)  # Tamanho padrão para redimensionar as imagens
-
 # Função para redimensionar a imagem
 def resize_image(image, size):
     return cv2.resize(image, size)

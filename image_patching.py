@@ -67,7 +67,7 @@ def load_patches_by_category(base_dir, categories, patch_size=(32, 32)):
             for filename in files:
                 if filename.endswith('.png'):
                     patch = cv2.imread(os.path.join(root, filename), cv2.IMREAD_GRAYSCALE)
-                    if patch is not None and patch.shape == patch_size:
-                        category_patches.append(patch.flatten())
+                    #if patch is not None and patch.shape == patch_size:
+                    category_patches.append(patch.flatten())
         patches_by_category[category] = np.array(category_patches)
     return patches_by_category
