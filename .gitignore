@@ -10,4 +10,5 @@ data/CBIR_15-Scene
 images_test/
 images_train/
 original_images_raw/
-pca_images_reconstructed/
+all_components_pca_images_reconstructed/
+reduced_components_pca_images_reconstructed/
