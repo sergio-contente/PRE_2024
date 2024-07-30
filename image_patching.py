@@ -1,12 +1,6 @@
-import cv2
 import os
 import numpy as np
-import sys
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from dataframe_generator import *
-
-standard_size = (256, 256)  # Tamanho padrão para redimensionar as imagens
+import cv2
 
 def create_patches(image, patch_size):
     h, w, c = image.shape
@@ -64,10 +58,11 @@ def load_patches_by_category(base_dir, categories, patch_size=(32, 32)):
         category_patches = []
         category_dir = os.path.join(base_dir, str(category))
         for root, _, files in os.walk(category_dir):
+            files.sort()  # Sort files to maintain order
             for filename in files:
                 if filename.endswith('.png'):
                     patch = cv2.imread(os.path.join(root, filename), cv2.IMREAD_GRAYSCALE)
-                    #if patch is not None and patch.shape == patch_size:
-                    category_patches.append(patch.flatten())
+                    if patch is not None and patch.shape == patch_size:
+                        category_patches.append(patch.flatten())
         patches_by_category[category] = np.array(category_patches)
     return patches_by_category
