@@ -14,7 +14,7 @@ def save_image(image, output_dir, base_name):
     cv2.imwrite(os.path.join(output_dir, image_name), image)
 
 # Função para criar conjunto de imagens redimensionadas
-def create_images_set(X_train, X_test, y_train, y_test, output_dir_train='images_train', output_dir_test='images_test', standard_size=(224, 224)):
+def create_images_set(X_train, X_test, y_train, y_test, output_dir_train='images_train', output_dir_test='images_test', standard_size=(256, 256)):
     for path, category in zip(X_train, y_train):
         image = cv2.imread(path)
         if image is not None:
@@ -31,7 +31,7 @@ def create_images_set(X_train, X_test, y_train, y_test, output_dir_train='images
             category_dir = os.path.join(output_dir_test, str(category))
             save_image(resized_image, category_dir, f'image_{idx}')
 
-def load_images_by_category(base_dir, categories, image_size=(224, 224)):
+def load_images_by_category(base_dir, categories, image_size=(256, 256)):
     images_by_category = {}
     for category in categories:
         category_images = []
@@ -40,7 +40,7 @@ def load_images_by_category(base_dir, categories, image_size=(224, 224)):
             for filename in files:
                 if filename.endswith('.png'):
                     image_path = os.path.join(root, filename)
-                    image = cv2.imread(image_path, cv2.IMREAD_COLOR) 
+                    image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE) 
                     if image is not None:
                         resized_image = resize_image(image, image_size)
                         category_images.append(resized_image)
