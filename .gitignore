@@ -17,3 +17,5 @@ all_components_pca_images_residuals/
 reduced_components_pca_images_residuals/
 specific_components_pca_images_reconstructed/
 similar_*/
+all-env*/
+different*/

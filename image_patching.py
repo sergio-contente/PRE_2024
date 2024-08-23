@@ -52,17 +52,33 @@ def create_images_set(X_train, X_test, y_train, y_test, patch_size=(32, 32), out
             category_dir = os.path.join(output_dir_test, str(category), f'image_{idx}')
             save_patches(image_patches, positions, category_dir, f'image_{idx}', resized_image.shape, patch_size)
 
-def load_patches_by_category(base_dir, categories, patch_size=(32, 32)):
+def load_patches_by_category(base_dir, categories):
     patches_by_category = {}
+    
     for category in categories:
-        category_patches = []
+        category_patches = {}
         category_dir = os.path.join(base_dir, str(category))
+        
         for root, _, files in os.walk(category_dir):
-            files.sort()  # Sort files to maintain order
+            files = [f for f in files if f.endswith('.png') and '_patch_' in f]
+            files = sorted(files, key=lambda x: (int(x.split('_')[1]), int(x.split('_')[3]), int(x.split('_')[4].split('.')[0])))
+
             for filename in files:
-                if filename.endswith('.png'):
+                try:
+                    parts = filename.split('_')
+                    image_id = int(parts[1])
+                    y = int(parts[3])
+                    x = int(parts[4].split('.')[0])
                     patch = cv2.imread(os.path.join(root, filename), cv2.IMREAD_GRAYSCALE)
-                    if patch is not None and patch.shape == patch_size:
-                        category_patches.append(patch.flatten())
-        patches_by_category[category] = np.array(category_patches)
+                    if patch is not None:
+                        if image_id not in category_patches:
+                            category_patches[image_id] = ([], [])
+                        category_patches[image_id][0].append(patch.flatten())
+                        category_patches[image_id][1].append((y, x))
+                except (IndexError, ValueError) as e:
+                    print(f"Error processing file {filename}: {e}")
+                    continue
+
+        patches_by_category[category] = category_patches
+    
     return patches_by_category
