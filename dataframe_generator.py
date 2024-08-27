@@ -31,11 +31,4 @@ def create_dataframe():
 	df_dataset = pd.DataFrame(dataset)
 	print(df_dataset)
 
-	X = df_dataset['image_path']
-	y = df_dataset['category']
-
-	split_variables = ()
-	(X_train, X_test, y_train, y_test) = train_test_split(X, y, test_size=0.2, random_state=10)
-	split_variables = (X_train, X_test, y_train, y_test)
-	return df_dataset, split_variables
-
+	return df_dataset
